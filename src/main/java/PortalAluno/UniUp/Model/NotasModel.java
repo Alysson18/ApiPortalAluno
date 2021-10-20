@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import org.springframework.http.ResponseEntity;
-
 @Entity(name = "vw_notas")
 public class NotasModel {
 

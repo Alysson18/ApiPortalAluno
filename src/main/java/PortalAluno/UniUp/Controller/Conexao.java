@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class Conexao {
 
 	String serverName = "localhost";
-	String URL= "jdbc:mysql://"+ serverName + "/alysson";
+	String URL= "jdbc:mysql://"+ serverName + "/portalaluno";
 	
 	Connection conexao;
 	
