@@ -18,11 +18,13 @@ import PortalAluno.UniUp.Model.NotasModel;
 @RequestMapping(value = "/api")
 public class NotasController {
 
+
 	//@Autowired
 	//private NotasRepository notasRepository;
 
 	@GetMapping(path ="/notas/aluno/{codigo}")
 	public List<NotasModel> Notas(@PathVariable("codigo") Integer codigo)throws SQLException
+
 	{
 		Conexao con = new Conexao();
 		Statement st = con.conexao.createStatement();
@@ -109,6 +111,6 @@ public class NotasController {
 		return notas ;
 
 	}
-
-
 }
+
+
