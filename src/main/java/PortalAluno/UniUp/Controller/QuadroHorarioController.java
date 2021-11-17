@@ -61,6 +61,7 @@ public class QuadroHorarioController {
 		horarios.add(hr);
 		
 		return horarios;
+	
 	}
 	
 	
