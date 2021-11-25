@@ -3,6 +3,9 @@ package PortalAluno.UniUp.Controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Random;
 
 import org.apache.commons.mail.DefaultAuthenticator;
@@ -21,16 +24,22 @@ import PortalAluno.UniUp.Model.EsqueciSenhaModel;
 @RequestMapping(value = "/api")
 public class EsqueciSenhaController {
 
+
 	@PostMapping(path = "/esquecisenha")
 	public String esqueciSenha(@RequestBody EsqueciSenhaModel email) throws SQLException
 	{
-		Random gerador = new Random();
+	    DateTimeFormatter dtfd = DateTimeFormatter.ofPattern("dd");
+	    DateTimeFormatter dtfh = DateTimeFormatter.ofPattern("HH");
+	    DateTimeFormatter dtfm = DateTimeFormatter.ofPattern("mm");
+	    DateTimeFormatter dtfs = DateTimeFormatter.ofPattern("ss");
+		Date dt = new Date();
 		String Codigo = "";
 
+		Random rd = new Random();
 		Conexao con = new Conexao();
 		Statement st = con.conexao.createStatement();
 
-		String sql = "Select Count(0) as Retorno, Lpad(Id, 3, '0') as Id  From portalaluno.tb_users where Usuario = '" + email.getEmail() + "'";
+		String sql = "Select Count(0) as Retorno, Lpad(Id, 4, '0') as Id  From portalaluno.tb_users where Usuario = '" + email.getEmail() + "'";
 
 
 		ResultSet result =  st.executeQuery(sql);
@@ -38,13 +47,12 @@ public class EsqueciSenhaController {
 		result.next();	
 		String Id_usuario = result.getString("Id");
 		if (result.getString("Retorno").equals("1"))
-		{
-
-			for (int i = 0; i < 5; i++) {
-
-				Codigo += String.valueOf(gerador.nextInt(9));
-
-			}			
+		{		     
+			Codigo += dtfd.format(LocalDateTime.now());
+			Codigo += dtfh.format(LocalDateTime.now());
+			Codigo += dtfm.format(LocalDateTime.now());
+			Codigo += dtfs.format(LocalDateTime.now());
+			Codigo += String.valueOf(rd.nextInt(9));
 
 
 			MultiPartEmail emailConfig = new MultiPartEmail();
@@ -60,7 +68,7 @@ public class EsqueciSenhaController {
 			try
 			{
 				Codigo += Id_usuario;
-				
+
 				emailConfig.setFrom("alyssongabriel80@gmail.com","Suporte UniUp");
 
 				emailConfig.setSubject("Redefinição de Senha");
@@ -113,10 +121,6 @@ public class EsqueciSenhaController {
 			String sqlUpdate = "Update portalaluno.tb_users set password = '" + senha.getSenha() + "' where id = ('" + Id_usuario + "')";
 
 			st.execute(sqlUpdate);
-
-
-			String sqlDelete = "Delete from portalaluno.codigos_alteracao_senha  where Codigo = '" + senha.getCodigo() + "'";
-			st.execute(sqlDelete);
 
 
 			return "Senha Alterada Com Sucesso";

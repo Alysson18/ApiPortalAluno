@@ -4,6 +4,7 @@ public class AlterarSenhaModel {
 	
 	private String Codigo;
 	private String Senha;
+	
 	public String getCodigo() {
 		return Codigo;
 	}
