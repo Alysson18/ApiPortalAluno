@@ -6,6 +6,8 @@ import java.sql.Statement;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +16,8 @@ import PortalAluno.UniUp.Model.DadosAlunoModel;
 @RestController
 @RequestMapping(value = "/api")
 public class DadosAlunoController {
-	@GetMapping(path ="/alterardados/aluno/{codigo}")
+	
+	@GetMapping(path ="/dados/aluno/{codigo}")
 	public DadosAlunoModel DadosAluno(@PathVariable("codigo") Integer codigo)throws SQLException
 
 	{
@@ -45,4 +48,19 @@ public class DadosAlunoController {
 	
 	}
 
+	@PutMapping(path = "/alterardados/aluno")
+	public String alterarDados(@RequestBody DadosAlunoModel dados) throws SQLException
+	{
+
+		Conexao con = new Conexao();
+		Statement st = con.conexao.createStatement();
+	
+		String sqlUpdate = "Update portalaluno.alunos set email = '" + dados.getEmail() + "', telefone = '" + dados.getTelefone() + 
+				"' where id = ('" + dados.getId_Aluno() + "')";
+
+		st.execute(sqlUpdate);
+		
+		
+		return "Alteração efetuada com Sucesso";
+	}
 }
