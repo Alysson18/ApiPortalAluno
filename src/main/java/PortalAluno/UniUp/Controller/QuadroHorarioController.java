@@ -24,7 +24,7 @@ public class QuadroHorarioController {
 		Conexao con = new Conexao();
 		Statement st = con.conexao.createStatement();
 
-		String sql = "Select * From portalaluno.new_view where id_aluno = " + codigo + " group by horario";
+		String sql = "Select * From portalaluno.vw_horarios where id_aluno = " + codigo + " group by horario";
 		ResultSet result =  st.executeQuery(sql);
 		result.next();
 		

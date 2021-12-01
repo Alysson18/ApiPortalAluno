@@ -1,10 +1,14 @@
 package PortalAluno.UniUp.Controller;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import PortalAluno.UniUp.Model.AlterUserModel;
 import PortalAluno.UniUp.Model.LoginModel;
 import PortalAluno.UniUp.Model.UsuarioLogadoModel;
+
+
 
 @RestController
 @RequestMapping(value = "/api")
@@ -35,7 +41,7 @@ public class UsuarioController {
 		Statement st = con.conexao.createStatement();
 
 
-		String sql = "Select id, nome, Id_Usuario, Qntd_Acesso From portalaluno.vw_login  where Usuario = '" + login.getEmail() + "' And Password = '" + login.getSenha() +"'";
+		String sql = "Select id, nome, Id_Usuario, Qntd_Acesso, Foto From portalaluno.vw_login  where Usuario = '" + login.getEmail() + "' And Password = '" + login.getSenha() +"'";
 
 
 		ResultSet result =  st.executeQuery(sql);
@@ -45,6 +51,21 @@ public class UsuarioController {
 		UsuarioLogadoModel  UserLogado = new UsuarioLogadoModel();
 		UserLogado.setNome(result.getString("Nome"));
 		UserLogado.setId(result.getString("Id"));  
+		 //D:\Fotos_Alunos\ "+ 0003 + ".jpeg"
+		try {
+			File Arquivo = new File(result.getString("foto"));
+			
+			byte[] data = new byte[(int) Arquivo.length()];
+		    DataInputStream dis = new DataInputStream(new FileInputStream(Arquivo));
+			 dis.readFully(data);
+			 dis.close();
+				
+			 String  s = Base64.getEncoder().encodeToString(data);
+			  UserLogado.setFoto("data:image/jpg;base64," + s);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			
+		}
 
 		int Qntd = result.getInt("Qntd_Acesso");
 

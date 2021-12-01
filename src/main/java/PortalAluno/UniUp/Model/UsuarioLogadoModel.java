@@ -5,8 +5,15 @@ public class UsuarioLogadoModel {
 	
 	private String Nome;
 	private String Id;
+String foto;
 
 	
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 	public String getNome() {
 		return Nome;
 	}
