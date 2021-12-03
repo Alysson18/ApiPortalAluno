@@ -26,11 +26,11 @@ public class EnvioEmailController {
 		emailConfig.setSSLOnConnect(true);
 		
 		
-		emailConfig.setAuthenticator(new DefaultAuthenticator("alyssongabriel80@gmail.com", "Alysson@2021"));
+		emailConfig.setAuthenticator(new DefaultAuthenticator("Email", "Senha"));
 				
 		try
 		{
-			emailConfig.setFrom("alyssongabriel80@gmail.com","Suporte UniUp");
+			emailConfig.setFrom("email","Suporte UniUp");
 						
 			emailConfig.setSubject("Suporte");
 			emailConfig.setMsg(email.getSolicitacao() + "\n\nEmail enviado por: " + email.getEmail()

@@ -63,13 +63,13 @@ public class EsqueciSenhaController {
 			emailConfig.setSSLOnConnect(true);
 
 
-			emailConfig.setAuthenticator(new DefaultAuthenticator("alyssongabriel80@gmail.com", "Alysson@2021"));
+			emailConfig.setAuthenticator(new DefaultAuthenticator("Email", "Senha"));
 
 			try
 			{
 				Codigo += Id_usuario;
 
-				emailConfig.setFrom("alyssongabriel80@gmail.com","Suporte UniUp");
+				emailConfig.setFrom("email","Suporte UniUp");
 
 				emailConfig.setSubject("Redefinição de Senha");
 				emailConfig.setMsg("\nOlá,\n\nConforme o Solicitado segue o Codigo de Recuperação de Senha do Portal: \n\n" + Codigo + "\n\nSe você não solicitou a redefinição da sua senha,"
