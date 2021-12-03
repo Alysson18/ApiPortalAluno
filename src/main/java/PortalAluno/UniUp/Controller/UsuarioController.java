@@ -51,7 +51,7 @@ public class UsuarioController {
 		UsuarioLogadoModel  UserLogado = new UsuarioLogadoModel();
 		UserLogado.setNome(result.getString("Nome"));
 		UserLogado.setId(result.getString("Id"));  
-		 //D:\Fotos_Alunos\ "+ 0003 + ".jpeg"
+		 
 		try {
 			File Arquivo = new File(result.getString("foto"));
 			
@@ -64,6 +64,7 @@ public class UsuarioController {
 			  UserLogado.setFoto("data:image/jpg;base64," + s);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			UserLogado.setFoto("data:image/jpg;base64,");
 			
 		}
 

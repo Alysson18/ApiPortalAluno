@@ -28,10 +28,10 @@ public class EsqueciSenhaController {
 	@PostMapping(path = "/esquecisenha")
 	public String esqueciSenha(@RequestBody EsqueciSenhaModel email) throws SQLException
 	{
-	    DateTimeFormatter dtfd = DateTimeFormatter.ofPattern("dd");
-	    DateTimeFormatter dtfh = DateTimeFormatter.ofPattern("HH");
-	    DateTimeFormatter dtfm = DateTimeFormatter.ofPattern("mm");
-	    DateTimeFormatter dtfs = DateTimeFormatter.ofPattern("ss");
+		DateTimeFormatter dtfd = DateTimeFormatter.ofPattern("dd");
+		DateTimeFormatter dtfh = DateTimeFormatter.ofPattern("HH");
+		DateTimeFormatter dtfm = DateTimeFormatter.ofPattern("mm");
+		DateTimeFormatter dtfs = DateTimeFormatter.ofPattern("ss");
 		Date dt = new Date();
 		String Codigo = "";
 
@@ -47,7 +47,7 @@ public class EsqueciSenhaController {
 		result.next();	
 		String Id_usuario = result.getString("Id");
 		if (result.getString("Retorno").equals("1"))
-		{		     
+		{		
 			Codigo += dtfd.format(LocalDateTime.now());
 			Codigo += dtfh.format(LocalDateTime.now());
 			Codigo += dtfm.format(LocalDateTime.now());
@@ -80,7 +80,7 @@ public class EsqueciSenhaController {
 				emailConfig.send();										
 
 
-				String sqlInsert = "Insert into portalaluno.codigos_alteracao_senha(id_usuario, Codigo) values(" + Id_usuario + "," + Codigo + ")";
+				String sqlInsert = "Insert into portalaluno.codigos_alteracao_senha(id_usuario, Codigo) values(" + Id_usuario + ", '"  + Codigo + "' )";
 
 				st.execute(sqlInsert);
 
