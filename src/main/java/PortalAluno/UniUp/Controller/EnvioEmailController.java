@@ -35,7 +35,7 @@ public class EnvioEmailController {
 			emailConfig.setSubject("Suporte");
 			emailConfig.setMsg(email.getSolicitacao() + "\n\nEmail enviado por: " + email.getEmail()
 			+ "\nTelefone Para Contato: " + email.getTelefone());
-			emailConfig.addTo("alysson.paulino@hotmail.com");
+			emailConfig.addTo("email@email.com");
 			
 			emailConfig.send();
 				
